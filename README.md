@@ -1,1 +1,34 @@
-# mongo-backup
+# Mongo backup guide
+
+1. **Pull the mongo docker image mongo:latest by using the command:**
+    
+    docker pull mongo:latest
+
+2. **Run the mongo container and expose the necessary ports with the following command:**
+
+    docker run -p 27017-27019:27017-27019 --name your_mongo -d mongo:latest
+
+3. **Populate the database with some data using the populate.js script and running it 
+like this:**
+
+    mongo --eval "var database=YOUR_DATABASE, no_entries=NO_ENTRIES" populate.js
+
+    example:
+    mongo --eval "var database='test', no_entries=10000" populate.js
+
+
+4. **Backup the databse by running the backup.sh script. You should run it like this:**
+
+    ./backup.sh [DATABASE_NAME]
+
+5. **You can restore the data to another database by running the restore.sh script.**
+
+    ./restor.sh [NEW_DATABASE_NAME] [PATH_TO_BACKUP_ARCHIVE]
+
+    exemple:
+    ./restore.sh test_restored /backups/test-backup.tar.gz
+
+6. **Stop the mongo container with the following commands:**
+
+    docker stop your_mongo
+    docker rm your_mongo
