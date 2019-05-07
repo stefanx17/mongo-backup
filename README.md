@@ -14,6 +14,7 @@ like this:**
     mongo --eval "var database=YOUR_DATABASE, no_entries=NO_ENTRIES" populate.js
 
     example:
+   
     mongo --eval "var database='test', no_entries=10000" populate.js
 
 
@@ -26,9 +27,11 @@ like this:**
     ./restor.sh [NEW_DATABASE_NAME] [PATH_TO_BACKUP_ARCHIVE]
 
     exemple:
+    
     ./restore.sh test_restored /backups/test-backup.tar.gz
 
 6. **Stop the mongo container with the following commands:**
 
     docker stop your_mongo
+    
     docker rm your_mongo
