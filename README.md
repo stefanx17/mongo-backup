@@ -1,15 +1,18 @@
 # Mongo backup guide
 
 0. **Install docker on your local machinels:**
-	sudo apt-get install docker
-	sudo apt-get install docker.io
+	
+		sudo apt-get install docker
+		sudo apt-get install docker.io
 
 0. **Install mongo on your local machine:**
-	sudo apt-get install mongodb-clients
+	
+		sudo apt-get install mongodb-clients
 
-0. **Right now the executables should be in /usr/bin, if not**
-**you shoudl add the path to the binaries:**
-	export PATH=$PATH:<mongodb installation dir>/bin
+0. **Right now the executables should be already in PATH in /usr/bin, if not**
+**you should add the path to the binaries:**
+	
+		export PATH=$PATH:[mongodb installation dir]/bin
     
 1. **Pull the mongo docker image mongo:latest by using the command:**
     
