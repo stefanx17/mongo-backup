@@ -1,12 +1,23 @@
 # Mongo backup guide
 
+0. **Install docker on your local machinels:**
+	sudo apt-get install docker
+	sudo apt-get install docker.io
+
+0. **Install mongo on your local machine:**
+	sudo apt-get install mongodb-clients
+
+0. **Right now the executables should be in /usr/bin, if not**
+**you shoudl add the path to the binaries:**
+	export PATH=$PATH:<mongodb installation dir>/bin
+    
 1. **Pull the mongo docker image mongo:latest by using the command:**
     
-    docker pull mongo:latest
+    [sudo] docker pull mongo:latest
 
 2. **Run the mongo container and expose the necessary ports with the following command:**
 
-    docker run -p 27017-27019:27017-27019 --name your_mongo -d mongo:latest
+    [sudo] docker run -p 27017-27019:27017-27019 --name your_mongo -d mongo:latest
 
 3. **Populate the database with some data using the populate.js script and running it 
 like this:**
@@ -20,18 +31,35 @@ like this:**
 
 4. **Backup the databse by running the backup.sh script. You should run it like this:**
 
-    ./backup.sh [DATABASE_NAME]
+    [sudo] ./backup.sh [DATABASE_NAME]
 
 5. **You can restore the data to another database by running the restore.sh script.**
 
-    ./restor.sh [NEW_DATABASE_NAME] [PATH_TO_BACKUP_ARCHIVE]
+    [sudo] ./restore.sh [NEW_DATABASE_NAME] [PATH_TO_BACKUP_ARCHIVE]
 
     exemple:
     
-    ./restore.sh test_restored /backups/test-backup.tar.gz
+    [sudo] ./restore.sh test_restored backups/test-backup.tar.gz
 
 6. **Stop the mongo container with the following commands:**
 
-    docker stop your_mongo
+    [sudo] docker stop your_mongo
     
-    docker rm your_mongo
+    [sudo] docker rm your_mongo
+    
+**Note:**
+
+You need to make sure that the mongo server is the same
+version as the mongo client you use on your local machine
+    
+    
+    1. Import the private key to your system
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+
+
+    2. Add the official MongoDB repository to the system
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org.list
+
+	3.  Install the mongo binaries
+    sudo apt update
+	sudo apt install -y mongodb-org
